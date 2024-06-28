@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Glucose Readings</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<div class="chart-container">
+    <div class="glucose-form">
+        <h2 class="input-title">Glucose Readings</h2>
+        <form th:action="@{/api/glucose/all}" method="get">
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year">
+                </div>
+                <div class="input-group">
+                    <label for="month">Month:</label>
+                    <input type="number" id="month" name="month">
+                </div>
+                <div class="input-group">
+                    <label for="week">Week:</label>
+                    <input type="number" id="week" name="week">
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn-from-chart" type="submit" name="view" value="specificMonth">Filter by Month</button>
+                <button class="btn-from-chart" type="submit" name="view" value="specificWeek">Filter by Week</button>
+            </div>
+        </form>
+    </div>
+    <div class="chart">
+        <canvas id="glucoseChart"></canvas>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="section__container footer__container">
+        <div class="footer__col">
+            <h3>Health<span>Care</span></h3>
+            <p>
+                We are honored to be a part of your Diabetescare journey and committed
+                to delivering compassionate, personalized, and top-notch care every
+                step of the way.
+            </p>
+            <p>
+                Trust us with your health, and let us work together to achieve the
+                best possible outcomes for you and your loved ones.
+            </p>
+        </div>
+        <div class="footer__col">
+            <h4>About Us</h4>
+            <p>Home</p>
+            <p>About Us</p>
+            <p>Work With Us</p>
+            <p>Our Blog</p>
+            <p>Terms & Conditions</p>
+        </div>
+        <div class="footer__col">
+            <h4>Services</h4>
+            <p>Search Terms</p>
+            <p>Advance Search</p>
+            <p>Privacy Policy</p>
+            <p>Suppliers</p>
+            <p>Our Stores</p>
+        </div>
+        <div class="footer__col">
+            <h4>Contact Us</h4>
+            <p>
+                <i class="ri-map-pin-2-fill"></i> 123, London Bridge Street, London
+            </p>
+            <p><i class="ri-mail-fill"></i> support@care.com</p>
+            <p><i class="ri-phone-fill"></i> (+012) 3456 789</p>
+        </div>
+    </div>
+    <div class="footer__bar">
+        <div class="footer__bar__content">
+            <p>Copyright © 2024 ManbarDev. All rights reserved.</p>
+            <div class="footer__socials">
+                <span><i class="ri-instagram-line"></i></span>
+                <span><i class="ri-facebook-fill"></i></span>
+                <span><i class="ri-heart-fill"></i></span>
+                <span><i class="ri-twitter-fill"></i></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script th:inline="javascript">
+
+    var labels = /*[[${labels}]]*/ [];
+    var data = /*[[${data}]]*/ [];
+
+    var ctx = document.getElementById('glucoseChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# of Votes',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

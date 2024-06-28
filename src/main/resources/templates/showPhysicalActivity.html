@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+            rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/c1df782baf.js"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<header>
+    <nav class="section__container nav__container">
+        <div class="nav__logo">Diabets<span>Care</span></div>
+        <ul class="nav__links">
+            <li class="link"><a href="/api/glucose/home">Home</a></li>
+            <li class="link"><a href="#">About Us</a></li>
+            <li class="link"><a href="/api/glucose/all">Glucose</a></li>
+            <li class="link"><a href="/api/meal/homeMeal">Meals</a></li>
+            <li class="link"><a href="/api/phyisicalActivty/homeActivity">Activities</a></li>
+        </ul>
+        <button class="btn">Contact Us</button>
+    </nav>
+    <div class="section__container header__container">
+        <div class="header__content">
+            <h1>Providing an Exceptional Patient Experience</h1>
+            <p>
+                Welcome, where exceptional patient experiences are our priority.
+                With compassionate care, state-of-the-art facilities, and a
+                patient-centered approach, we're dedicated to your well-being. Trust
+                us with your health and experience the difference.
+            </p>
+            <a href="#allmeal" class="btn">See Activities</a>
+        </div>
+        <div class="header__form">
+            <form th:action="@{/api/phyisicalActivty/addActivity}" th:object="${physicalActivities}" method="post">
+                <h4>Add New Activity</h4>
+                <input type="text" placeholder="Activity Description" th:field="*{activityDescription}" />
+                <input type="number" placeholder="Duration en min" th:field="*{duration}"/>
+                <input type="number" placeholder="Burned Calories" th:field="*{burnedCalories}"/>
+                <input type="number" name="user" value="1" readonly/>
+                <button type="submit" class="btn form__btn">Add</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div class="technology">
+    <div class="main-technology">
+
+        <div class="inner-technology">
+            <span></span>
+            <i class="fi fi-tr-hands-heart"></i>
+            <h2>Free Advice</h2>
+            <p>We provide free advice to our patients on how to live a healthy and fulfilling life..</p>
+        </div>
+
+        <div class="inner-technology">
+            <span></span>
+            <i class="fi fi-rr-doctor"></i>
+            <h2>Meals & Physical Activities</h2>
+            <p>Our hospital provides free healthy meals and physical activities to our diabetic patients for a good and healthy life..</p>
+        </div>
+
+        <div class="inner-technology">
+            <span></span>
+            <i class="fi fi-tr-user-md"></i>
+            <h2>Daily Diabets Tracker</h2>
+            <p>Our hospital provides free Diabetes Tracker Daily to our diabetic patients for a good and healthy life..</p>
+        </div>
+    </div>
+</div>
+
+<section class="section__container about__container">
+    <div class="about__content">
+        <h2 class="section__header">About Us</h2>
+        <p>
+            Welcome to our DiabetsCare website, your one-stop destination for
+            reliable and comprehensive health care information. We are committed
+            to promoting wellness and providing valuable resources to empower you
+            on your health journey.
+        </p>
+        <p>
+            Explore our extensive collection of expertly written articles and
+            guides covering a wide range of health topics. From understanding
+            common medical conditions to tips for maintaining a healthy lifestyle,
+            our content is designed to educate, inspire, and support you in making
+            informed choices for your health.
+        </p>
+        <p>
+            Discover practical health tips and lifestyle advice to optimize your
+            physical and mental well-being. We believe that small changes can lead
+            to significant improvements in your quality of life, and we're here to
+            guide you on your path to a healthier and happier you.
+        </p>
+    </div>
+    <div class="about__image">
+        <img th:src="@{/assets/about.jpg}" alt="about" />
+    </div>
+</section>
+
+<section class="section__container why__container">
+    <div class="why__image">
+        <img th:src="@{/assets/choose-us.jpg}" alt="why choose us" />
+    </div>
+    <div class="why__content">
+        <h2 class="section__header">Why Choose Us</h2>
+        <p>
+            Our platform provides a free daily Diabetes Tracker to help you monitor your blood sugar levels and manage your diabetes effectively..
+        </p>
+        <div class="why__grid">
+            <span><i class="fa-solid fa-comment-medical"></i></span>
+            <div>
+                <h4>Expert Advice</h4>
+                <p>
+                    Access free, expert advice from DiabetsCare professionals, including dietary tips and exercise routines, all available for download to keep you informed and supported.
+                </p>
+            </div>
+            <span><i class="fa-solid fa-weight-scale"></i></span>
+            <div>
+                <h4>Nutritious Meal Plans</h4>
+                <p>
+                    Enjoy free, healthy meal plans tailored for individuals with diabetes, offering delicious and balanced options to maintain stable blood sugar levels.
+                </p>
+            </div>
+            <span><i class="fa-solid fa-person-running"></i></span>
+            <div>
+                <h4>Encouraging Physical Activity</h4>
+                <p>
+                    Stay active with our free physical activity plans designed for all fitness levels, helping you manage your weight and enhance your overall health.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<h1 style="text-align: center" id="allmeal">All Physical Activity </h1>
+
+<div class="wrap">
+    <div class="box" th:each="activity : ${listActivities}">
+        <div class="box-top">
+            <img class="box-image" src="https://www.healthifyme.com/blog/wp-content/uploads/2021/09/Why-Diabetics-Should-Exercise.jpg" alt="Girl Eating Pizza">
+            <div class="title-flex">
+                <h3 class="box-title" th:text="'Calories: '+${activity.burnedCalories}+'Kcal'">Kelsie Meyer</h3>
+                <p class="user-follow-info" th:text="'Duration: '+${activity.duration}+'min'">17 Projects</p>
+            </div>
+            <p class="description" th:text="'Description: '+${activity.activityDescription}">Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+        </div>
+        <a href="#" class="button">See More</a>
+    </div>
+
+</div>
+
+
+<footer class="footer">
+    <div class="section__container footer__container">
+        <div class="footer__col">
+            <h3>Health<span>Care</span></h3>
+            <p>
+                We are honored to be a part of your Diabetescare journey and committed
+                to delivering compassionate, personalized, and top-notch care every
+                step of the way.
+            </p>
+            <p>
+                Trust us with your health, and let us work together to achieve the
+                best possible outcomes for you and your loved ones.
+            </p>
+        </div>
+        <div class="footer__col">
+            <h4>About Us</h4>
+            <p>Home</p>
+            <p>About Us</p>
+            <p>Work With Us</p>
+            <p>Our Blog</p>
+            <p>Terms & Conditions</p>
+        </div>
+        <div class="footer__col">
+            <h4>Services</h4>
+            <p>Search Terms</p>
+            <p>Advance Search</p>
+            <p>Privacy Policy</p>
+            <p>Suppliers</p>
+            <p>Our Stores</p>
+        </div>
+        <div class="footer__col">
+            <h4>Contact Us</h4>
+            <p>
+                <i class="ri-map-pin-2-fill"></i> 123, London Bridge Street, London
+            </p>
+            <p><i class="ri-mail-fill"></i> support@care.com</p>
+            <p><i class="ri-phone-fill"></i> (+012) 3456 789</p>
+        </div>
+    </div>
+    <div class="footer__bar">
+        <div class="footer__bar__content">
+            <p>Copyright © 2024 ManbarDev. All rights reserved.</p>
+            <div class="footer__socials">
+                <span><i class="ri-instagram-line"></i></span>
+                <span><i class="ri-facebook-fill"></i></span>
+                <span><i class="ri-heart-fill"></i></span>
+                <span><i class="ri-twitter-fill"></i></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script th:inline="javascript">
+    document.getElementById('download').addEventListener('click', () => {
+        const element = document.getElementById('content');
+        const options = {
+            margin: 1,
+            filename: 'mealPDF.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(options).from(element).save();
+    });
+</script>
+</body>
+</html>
