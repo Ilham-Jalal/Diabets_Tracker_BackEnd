@@ -17,19 +17,19 @@ public class GlucoseReading {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer glucoseReadingId;
 
-    @Column(nullable = false)
+   @Column
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime dateAndTime;
 
-    @Column(nullable = false)
+    @Column
     private Integer level;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String measurementType;
 
-//    @ManyToOne
-//    @JoinColumn(name = "userId", nullable = false)
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = true)
+    private User user;
 
     @Column(columnDefinition = "TEXT")
     private String comment;
@@ -38,7 +38,7 @@ public class GlucoseReading {
     public String toString() {
         return "GlucoseReading{" +
                 "glucoseReadingId=" + glucoseReadingId +
-                ", dateAndTime=" + dateAndTime +
+//                ", dateAndTime=" + dateAndTime +
                 ", level=" + level +
                 ", measurementType='" + measurementType + '\'' +
                 ", comment='" + comment + '\'' +

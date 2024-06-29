@@ -20,6 +20,15 @@ public class GlucoseReadingService {
     public GlucoseReading saveGlucoseReading(GlucoseReading glucoseReading) {
         return glucoseReadingRepository.save(glucoseReading);
     }
+    public GlucoseReading updateGlucoseReading(Integer id, GlucoseReading updatedGlucoseReading) {
+        GlucoseReading existingReading = glucoseReadingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Glucose Reading not found"));
+        existingReading.setLevel(updatedGlucoseReading.getLevel());
+        existingReading.setMeasurementType(updatedGlucoseReading.getMeasurementType());
+        existingReading.setComment(updatedGlucoseReading.getComment());
+        // Set other fields as needed
+        return glucoseReadingRepository.save(existingReading);
+    }
 
     public void deleteGlucoseReading(Integer id) {
         glucoseReadingRepository.deleteById(id);

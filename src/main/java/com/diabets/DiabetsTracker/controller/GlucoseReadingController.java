@@ -26,12 +26,16 @@ public class GlucoseReadingController {
         return glucoseReadingService.getAllGlucoseReadings();
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public GlucoseReading saveGlucoseReading(@RequestBody GlucoseReading glucoseReading) {
         return glucoseReadingService.saveGlucoseReading(glucoseReading);
     }
+    @PutMapping("/update/{id}")
+    public GlucoseReading updateGlucoseReading(@PathVariable Integer id, @RequestBody GlucoseReading glucoseReading) {
+        return glucoseReadingService.updateGlucoseReading(id, glucoseReading);
+    }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteGlucoseReading(@PathVariable Integer id) {
         glucoseReadingService.deleteGlucoseReading(id);
     }
